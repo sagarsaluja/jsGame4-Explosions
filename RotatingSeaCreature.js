@@ -14,11 +14,12 @@ class Explosion {
     this.image.src = "Assets/boom.png";
     this.frameWidth = this.image.width / 5;
     this.frameHeight = this.image.height;
-    this.x = x - canvasPosition.left - this.frameWidth / 2;
-    this.y = y - canvasPosition.top - this.frameHeight / 2;
+    this.x = x - canvasPosition.left;
+    this.y = y - canvasPosition.top;
     this.currentFrameX = 0;
     this.gameFrame = 0;
     this.explosionSpeed = 10;
+    this.angle = Math.random() * Math.PI * 2;
   }
   update() {
     if (this.gameFrame % this.explosionSpeed === 0) {
@@ -27,21 +28,26 @@ class Explosion {
     this.gameFrame++;
   }
   draw() {
+    context.save();
+    context.translate(this.x, this.y); //rotation center point
+    context.rotate(this.angle); //rotate the entire canvas contextj
     context.drawImage(
       this.image,
       this.currentFrameX * this.frameWidth,
       0,
       this.frameWidth,
       this.frameHeight,
-      this.x,
-      this.y,
+      0 - this.frameWidth * 0.5,
+      0 - this.frameHeight * 0.5, //changing these to origin as origin has been translated , then subtracting half of width and height to center the mouse
       this.frameWidth,
       this.frameHeight
     );
+    context.restore();
   }
 }
 let explosionsArray = [];
-window.addEventListener("click", (e) => {
+
+window.addEventListener("mousemove", (e) => {
   let newExplosion = new Explosion(e.x, e.y);
   explosionsArray.push(newExplosion);
 });
