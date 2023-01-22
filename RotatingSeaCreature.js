@@ -5,8 +5,6 @@ const context = canvas.getContext("2d");
 
 CANVAS_WIDTH = canvas.width = 500;
 CANVAS_HEIGHT = canvas.height = 800;
-const explosionImage = new Image();
-explosionImage.src = "Assets/boom.png";
 let canvasPosition = canvas.getBoundingClientRect();
 class Explosion {
   constructor(x, y) {
@@ -47,7 +45,7 @@ class Explosion {
 }
 let explosionsArray = [];
 
-window.addEventListener("mousemove", (e) => {
+canvas.addEventListener("mousemove", (e) => {
   let newExplosion = new Explosion(e.x, e.y);
   explosionsArray.push(newExplosion);
 });

@@ -19,8 +19,13 @@ class Explosion {
     this.currentFrameX = 0;
     this.gameFrame = 0;
     this.explosionSpeed = 10;
+    this.sound = new Audio();
+    this.sound.src = "Assets/Sounds/Ice Attack.wav";
   }
   update() {
+    if (this.currentFrameX === 0) {
+      this.sound.play();
+    }
     if (this.gameFrame % this.explosionSpeed === 0) {
       this.currentFrameX++;
     }
@@ -41,7 +46,7 @@ class Explosion {
   }
 }
 let explosionsArray = [];
-window.addEventListener("click", (e) => {
+canvas.addEventListener("click", (e) => {
   let newExplosion = new Explosion(e.x, e.y);
   explosionsArray.push(newExplosion);
 });
